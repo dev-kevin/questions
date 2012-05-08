@@ -26,6 +26,26 @@
 		define('DS', DIRECTORY_SEPARATOR);
 	}
 /**
+ * Define TMP
+ */
+	define('TMP', sys_get_temp_dir());
+
+	if (!is_dir($resources = str_replace("//", "/", TMP . '/resources'))) {
+		$dirs = array(
+			$resources,
+			"{$resources}/logs",
+			"{$resources}/cache",
+			"{$resources}/cache/persistent",
+			"{$resources}/cache/models",
+			"{$resources}/cache/views",
+			"{$resources}/sessions",
+		);
+		foreach ($dirs as $d) {
+			mkdir($d, 0777, true);
+		}
+	}
+
+/**
  * These defines should only be edited if you have cake installed in
  * a directory layout other than the way it is distributed.
  * When using custom settings be sure to use the DS and do not add a trailing DS.
