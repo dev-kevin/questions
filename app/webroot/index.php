@@ -28,21 +28,22 @@
 /**
  * Define TMP
  */
-	define('TMP', sys_get_temp_dir());
+	define('TMP', sys_get_temp_dir(). 'resources/');
 
-	if (!is_dir($resources = str_replace("//", "/", TMP . '/resources'))) {
+	if (!is_dir(TMP)) {
+		$resources = TMP;
 		$dirs = array(
-			$resources,
-			"{$resources}/logs",
-			"{$resources}/cache",
-			"{$resources}/cache/persistent",
-			"{$resources}/cache/models",
-			"{$resources}/cache/views",
-			"{$resources}/sessions",
+			"{$resources}logs",
+			"{$resources}cache",
+			"{$resources}cache/persistent",
+			"{$resources}cache/models",
+			"{$resources}cache/views",
+			"{$resources}sessions",
 		);
 		foreach ($dirs as $d) {
 			mkdir($d, 0777, true);
 		}
+		touch(TMP . 'installed.txt');
 	}
 
 /**
